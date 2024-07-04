@@ -4,4 +4,23 @@
   padding: 10px;
 }
 
+.Nav-ul li a{
+  color: white;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.Nav-ul {
+  padding: 5px;
+  margin: 0px;
+  background-color: skyblue;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  background-color: skyblue;
+}
 
