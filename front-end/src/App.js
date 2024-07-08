@@ -9,7 +9,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Nav />
-
         <Routes>
           <Route path="/" element={<h1>Product Listing Component</h1>} />
           <Route path="/add" element={<h1>Add Product Component</h1>} />
