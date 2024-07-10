@@ -14,4 +14,14 @@ app.post("/register", async (req, res) => {
   res.send(result);
 });
 
+app.post("/login", async (req, res) => {
+  //res.send(req.body);
+  let user = await User.findOne(req.body).select("-password");
+  if (user) {
+    res.send(user);
+  } else {
+    res.send({ result: "User not found" });
+  }
+});
+
 app.listen(5000);
