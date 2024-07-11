@@ -4,6 +4,7 @@ import Nav from "./components/Nav.js";
 import Footer from "./components/Footer.js";
 import SignUp from "./components/SignUp.js";
 import PrivateComponent from "./components/PrivateComponent.js";
+import Login from "./components/Login.js";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           </Route>
           
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+        
         </Routes>
       </BrowserRouter>
 
