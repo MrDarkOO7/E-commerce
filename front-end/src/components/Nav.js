@@ -10,39 +10,41 @@ const Nav = () => {
   };
   return (
     <div>
-      <ul className="Nav-ul">
-        <li>
-          <Link to="/">Products</Link>
-        </li>
-        <li>
-          <Link to="/add">Add Products</Link>
-        </li>
-        <li>
-          <Link to="/update">Update Products</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-
-        {auth ? (
+      <img
+        className="logo"
+        alt="logo"
+        src="https://t4.ftcdn.net/jpg/07/64/55/75/360_F_764557526_HlwV6rYpIxrfhrmlpTzl74INFoMmJs9Z.jpg"
+      ></img>
+      {auth ? (
+        <ul className="Nav-ul">
+          <li>
+            <Link to="/">Products</Link>
+          </li>
+          <li>
+            <Link to="/add">Add Products</Link>
+          </li>
+          <li>
+            <Link to="/update">Update Products</Link>
+          </li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
           <li>
             <Link to="/signup" onClick={logout}>
-              Logout
+              Logout ({JSON.parse(auth).name})
             </Link>
           </li>
-        ) : (
-          <Fragment>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </Fragment>
-        )}
-
-        <li></li>
-      </ul>
+        </ul>
+      ) : (
+        <ul className="Nav-ul nav-right">
+          <li>
+            <Link to="/signup">Sign Up</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

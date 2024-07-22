@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    console.log("Logged in from : ", email);
     let result = await fetch("http://localhost:5000/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
