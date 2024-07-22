@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddProduct = () => {
+const UpdateProduct = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -10,30 +10,15 @@ const AddProduct = () => {
   const LocaluserData = JSON.parse(localStorage.getItem("user"));
   const userId = LocaluserData._id;
 
-  const addProduct = async (e) => {
-    e.preventDefault();
-    if (!name || !price || !category || !company) {
-      <span>Enter</span>;
-      setError(true);
-      return false;
-    }
-    console.log(name, price, category, company, userId);
-
-    let result = await fetch("http://localhost:5000/add-product", {
-      method: "POST",
-      body: JSON.stringify({ name, price, category, userId, company }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    result = await result.json();
-    console.log(result);
+  const UpdateProduct = (e) => {
+    console.log(name, price, category, company);
   };
 
   return (
     <div className="container mt-5">
-      <h1>Add Product</h1>
+      <h1>Update Product</h1>
       <div className="container">
-        <form onSubmit={addProduct}>
+        <form onSubmit={UpdateProduct}>
           <div className="mt-3">
             <input
               type="text"
@@ -42,9 +27,6 @@ const AddProduct = () => {
               required
               onChange={(e) => setName(e.target.value)}
             />
-            {error && !name && (
-              <p className="invalid-input">Enter valid name</p>
-            )}
           </div>
           <div className="mt-3">
             <input
@@ -54,9 +36,6 @@ const AddProduct = () => {
               required
               onChange={(e) => setPrice(e.target.value)}
             />
-            {error && !price && (
-              <p className="invalid-input">Enter valid price</p>
-            )}
           </div>
           <div className="mt-3">
             <input
@@ -66,9 +45,6 @@ const AddProduct = () => {
               required
               onChange={(e) => setCategory(e.target.value)}
             />
-            {error && !category && (
-              <p className="invalid-input">Enter valid category</p>
-            )}
           </div>
           <div className="mt-3">
             <input
@@ -78,12 +54,9 @@ const AddProduct = () => {
               required
               onChange={(e) => setCompany(e.target.value)}
             />
-            {error && !company && (
-              <p className="invalid-input">Enter valid company</p>
-            )}
           </div>
           <button type="submit" className="btn btn-primary mt-3">
-            Add
+            Update
           </button>
         </form>
       </div>
@@ -91,4 +64,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,16 @@ export default function ProductsList() {
     setProducts(result);
   };
 
-  console.log(products);
+  const deleteProduct = async (id) => {
+    console.log(id);
+    let result = await fetch(`http://localhost:5000/product/${id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    if (result) {
+      getProducts();
+    }
+  };
 
   return (
     <div>
@@ -29,16 +39,20 @@ export default function ProductsList() {
           </thead>
           <tbody className="table-group-divider">
             {products.map((item, index) => (
-              <tr>
-                <td scope="row">{index + 1}</td>
+              <tr key={item._id}>
+                <th scope="row">{index + 1}</th>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
                 <td>{item.category}</td>
                 <td>
-                  <button className="btn btn-danger">
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteProduct(item._id)}
+                  >
                     {" "}
                     <i className="bi bi-trash"></i>Delete
                   </button>
+                  <Link to={"/update/" + item._id}>Update</Link>
                 </td>
               </tr>
             ))}
