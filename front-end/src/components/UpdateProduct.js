@@ -5,12 +5,9 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [company, setCompany] = useState("");
-  const [error, setError] = useState(false);
 
-  const LocaluserData = JSON.parse(localStorage.getItem("user"));
-  const userId = LocaluserData._id;
-
-  const UpdateProduct = (e) => {
+  const updateProduct = (e) => {
+    e.preventDefault();
     console.log(name, price, category, company);
   };
 
@@ -18,7 +15,7 @@ const UpdateProduct = () => {
     <div className="container mt-5">
       <h1>Update Product</h1>
       <div className="container">
-        <form onSubmit={UpdateProduct}>
+        <form onSubmit={updateProduct}>
           <div className="mt-3">
             <input
               type="text"
