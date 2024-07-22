@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp.js";
 import PrivateComponent from "./components/PrivateComponent.js";
 import Login from "./components/Login.js";
 import AddProduct from "./components/AddProduct.js";
+import ProductsList from "./components/ProductsList.js";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Nav />
         <Routes>
           <Route element={<PrivateComponent />}>
-            <Route path="/" element={<h1>Product Listing Component</h1>} />
+            <Route path="/" element={<ProductsList />} />
             <Route
               path="/add"
               element={
