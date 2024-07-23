@@ -3,8 +3,21 @@ html, body{
 }
 
 .container{
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
+}
+
+.search-input{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-box{
+  width: 400px;
+  height: 38px;
+  border: solid 1px skyblue;
 }
 
 .Nav-ul li{
