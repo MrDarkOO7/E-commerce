@@ -22,7 +22,10 @@ const AddProduct = () => {
     let result = await fetch("http://localhost:5000/add-product", {
       method: "POST",
       body: JSON.stringify({ name, price, category, userId, company }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        "Content-Type": "application/json",
+      },
     });
 
     result = await result.json();

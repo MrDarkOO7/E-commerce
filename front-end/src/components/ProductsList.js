@@ -7,7 +7,11 @@ export default function ProductsList() {
     getProducts();
   }, []);
   const getProducts = async () => {
-    let result = await fetch("http://localhost:5000/products");
+    let result = await fetch(`http://localhost:5000/products/`, {
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
     result = await result.json();
     setProducts(result);
   };
@@ -16,6 +20,9 @@ export default function ProductsList() {
     console.log(id);
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
     });
     result = await result.json();
     if (result) {
@@ -26,7 +33,11 @@ export default function ProductsList() {
   const handleSearch = async (e) => {
     const key = e.target.value;
     if (key) {
-      let result = await fetch(`http://localhost:5000/search/${key}`);
+      let result = await fetch(`http://localhost:5000/search/${key}`, {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      });
       result = await result.json();
       if (result) {
         setProducts(result);
@@ -77,6 +88,7 @@ export default function ProductsList() {
                       <i className="bi bi-trash"></i>Delete
                     </button>
                     <Link to={"/update/" + item._id}>Update</Link>
+                    {/* <Link to={'/add'} */}
                   </td>
                 </tr>
               ))}
