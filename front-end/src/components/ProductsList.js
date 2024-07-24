@@ -1,23 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GlobalInfo } from "./AppContext";
 
-export default function ProductsList() {
+const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const { setTotalProductsAvailable } = useContext(GlobalInfo);
+  const { loggedInID } = useContext(GlobalInfo);
+
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    const totalProductsAvailable = products.length;
+    setTotalProductsAvailable(totalProductsAvailable);
+  }, [products, setTotalProductsAvailable]);
+
   const getProducts = async () => {
-    let result = await fetch(`http://localhost:5000/products/`, {
+    let result = await fetch(`http://localhost:5000/products/${loggedInID}`, {
       headers: {
         authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
     result = await result.json();
     setProducts(result);
+    console.log(result);
   };
 
   const deleteProduct = async (id) => {
-    console.log(id);
+    //console.log(id);
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "DELETE",
       headers: {
@@ -47,9 +59,13 @@ export default function ProductsList() {
     }
   };
 
+  const handleAddProduct = (e) => {
+    navigate("/add");
+  };
+
   return (
     <div className="container">
-      <h3 className="mt-5 mb-3 text-center">Product List</h3>
+      <h3 className="mt-3 mb-3 text-center">Product List</h3>
       <div className="search-input">
         <input
           type="text"
@@ -88,7 +104,6 @@ export default function ProductsList() {
                       <i className="bi bi-trash"></i>Delete
                     </button>
                     <Link to={"/update/" + item._id}>Update</Link>
-                    {/* <Link to={'/add'} */}
                   </td>
                 </tr>
               ))}
@@ -97,7 +112,19 @@ export default function ProductsList() {
             <h1>No products found</h1>
           )}
         </table>
+        <div className="mt-4 d-grid gap-2 col-6 mx-auto">
+          <button
+            type="button"
+            className="btn-primary btn"
+            id="add-product-button"
+            onClick={handleAddProduct}
+          >
+            Add new product
+          </button>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ProductsList;

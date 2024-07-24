@@ -46,12 +46,20 @@ app.post("/login", async (req, res) => {
 
 app.post("/add-product", verifyToken, async (req, res) => {
   let product = new Product(req.body);
+
+  let user = req.body.userId;
+  console.log(user);
+  let update = await User.findOneAndUpdate(
+    { _id: user },
+    { $inc: { numProducts: 1 } }
+  );
+
   let result = await product.save();
   res.send(result);
 });
 
-app.get("/products", verifyToken, async (req, res) => {
-  let products = await Product.find();
+app.get("/products/:loggedInID", verifyToken, async (req, res) => {
+  let products = await Product.find({ userId: req.params.loggedInID });
   if (products.length > 0) res.send(products);
   else res.send({ result: "No products found" });
 });
@@ -87,6 +95,17 @@ app.get("/search/:key", verifyToken, async (req, res) => {
       { category: { $regex: req.params.key, $options: "i" } },
     ],
   });
+  res.send(result);
+});
+
+app.get("/getCount/:loggedInID", verifyToken, async (req, res) => {
+  const result = await User.findOne(
+    {
+      _id: req.params.loggedInID,
+    },
+    { numProducts: 1, _id: 0 }
+  );
+
   res.send(result);
 });
 

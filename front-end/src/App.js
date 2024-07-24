@@ -8,42 +8,54 @@ import Login from "./components/Login.js";
 import AddProduct from "./components/AddProduct.js";
 import ProductsList from "./components/ProductsList.js";
 import UpdateProduct from "./components/UpdateProduct.js";
+import Profile from "./components/Profile.js";
+import { AppProvider } from "./components/AppContext.js";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route element={<PrivateComponent />}>
-            <Route path="/" element={<ProductsList />} />
-            <Route
-              path="/add"
-              element={
-                <h1>
-                  <AddProduct />
-                </h1>
-              }
-            />
-            <Route
-              path="/update/:id"
-              element={
-                <h1>
-                  <UpdateProduct />
-                </h1>
-              }
-            />
-            <Route path="/logout" element={<h1>Logout Component</h1>} />
-            <Route path="/profile" element={<h1>Profile Component</h1>} />\
-          </Route>
+    <AppProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Nav />
+          <Routes>
+            <Route element={<PrivateComponent />}>
+              <Route path="/" element={<ProductsList />} />
+              <Route
+                path="/add"
+                element={
+                  <h1>
+                    <AddProduct />
+                  </h1>
+                }
+              />
+              <Route
+                path="/update/:id"
+                element={
+                  <h1>
+                    <UpdateProduct />
+                  </h1>
+                }
+              />
+              <Route path="/logout" element={<h1>Logout Component</h1>} />
+              <Route
+                path="/profile"
+                element={
+                  <h1>
+                    <Profile />
+                  </h1>
+                }
+              />
+              \
+            </Route>
 
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </AppProvider>
   );
 }
 

@@ -28,8 +28,9 @@ const AddProduct = () => {
       },
     });
 
-    result = await result.json();
-    console.log(result);
+    //result = await result.json();
+
+    //console.log(result);
   };
 
   return (

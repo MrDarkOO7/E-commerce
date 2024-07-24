@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { GlobalInfo } from "./AppContext";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setloggedInID } = useContext(GlobalInfo);
 
   const Navigate = useNavigate();
   useEffect(() => {
@@ -30,6 +32,8 @@ const SignUp = () => {
     console.log(result);
     localStorage.setItem("user", JSON.stringify(result.result));
     localStorage.setItem("token", JSON.stringify(result.auth));
+    console.log(result.result._id);
+    setloggedInID(result.result._id);
     if (result) {
       navigate("/");
     }

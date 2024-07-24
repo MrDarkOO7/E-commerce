@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GlobalInfo } from "./AppContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setloggedInID } = useContext(GlobalInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +29,8 @@ const Login = () => {
     if (result.auth) {
       localStorage.setItem("user", JSON.stringify(result.user));
       localStorage.setItem("token", JSON.stringify(result.auth));
+      //console.log(result.user._id);
+      setloggedInID(result.user._id);
       navigate("/");
     } else {
       alert("Please enter correct details");
